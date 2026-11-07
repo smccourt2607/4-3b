@@ -1,1 +1,60 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Payment Calculator</title>
+
+    <script>
+        function calculatePayment() {
+            var amount = Number(document.getElementById("amount").value);
+            var years = Number(document.getElementById("years").value);
+            var rate = Number(document.getElementById("rate").value);
+
+            var monthlyRate = rate / 100 / 12;
+            var months = years * 12;
+            var payment;
+
+            if (rate === 0) {
+                payment = amount / months;
+            } else {
+                payment = amount * monthlyRate /
+                    (1 - Math.pow(1 + monthlyRate, -months));
+            }
+
+            document.getElementById("result").innerHTML =
+                "If you borrow $" + amount + " for " +
+                years + " years at " + rate +
+                "% interest, your monthly payment will be: $" +
+                payment.toFixed(2);
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Loan Payment Calculator</h1>
+
+    <p>
+        <label>Present Value – Amount you wish to borrow:</label>
+        <input type="number" id="amount" value="25000">
+    </p>
+
+    <p>
+        <label>Years:</label>
+        <input type="number" id="years" value="6">
+    </p>
+
+    <p>
+        <label>Annual Interest Rate (%):</label>
+        <input type="number" id="rate" value="6" step="any">
+    </p>
+
+    <button onclick="calculatePayment()">
+        Calculate the Monthly Payment
+    </button>
+
+    <p id="result">
+        Your monthly payment will appear here.
+    </p>
+</body>
+</html>
+
